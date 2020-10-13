@@ -9,16 +9,20 @@ services:
     image: 'bitnami/zookeeper:latest'
     container_name: zookeeper
     networks:
-      - kafka-net
+      kafka-net:
+        aliases:
+          - zookeeper
     ports:
       - '2181:2181'
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
-  kafka-server1:
+  kafka-server:
     image: 'bitnami/kafka:latest'
     container_name: kafka
     networks:
-      - kafka-net    
+      kafka-net:
+        aliases:
+          - kafka
     ports:
       - '9092:9092'
     environment:
@@ -35,4 +39,4 @@ services:
     ports:
       - "7000:9000"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock  
+      - /var/run/docker.sock:/var/run/docker.sock
